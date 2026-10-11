@@ -10,7 +10,7 @@ Projeto desenvolvido para a atividade U4 - Deploy e Manutenção de Back-end.
 
 ## Status do pipeline
 
-![CI - API Flask](https://github.com/viniciusrepker14-debug/devops-u4-deployobservabilidade/actions/workflows/ci.yml/badge.svg)
+![CI - API Flask](https://github.com/viniciusrepker14-debug/devops-u4-deployobservabilidade/actions/workflows/main.yml/badge.svg)
 
 ## Testes automatizados
 
