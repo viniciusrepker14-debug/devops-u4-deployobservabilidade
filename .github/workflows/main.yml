@@ -1,4 +1,4 @@
-name: CI - API Flask
+name: CI/CD - API Flask
 
 on:
   push:
@@ -29,3 +29,33 @@ jobs:
 
       - name: Executar testes automatizados
         run: python -m pytest -v
+
+  deploy:
+    needs: testes
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Entrar no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Construir e publicar imagem Docker
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: viniciusrepker/api-flask-devops:latest
+
+      - name: Acionar deploy no Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error "$RENDER_DEPLOY_HOOK"
