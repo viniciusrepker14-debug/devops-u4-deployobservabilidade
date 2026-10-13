@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def inicio():
     return jsonify({
-        "mensagem": "API funcionando!",
+        "mensagem": "Nova versão publicada com CI/CD!",
         "status": "online"
     })
 
@@ -28,6 +28,11 @@ def produtos():
             "id": 3,
             "nome": "Teclado",
             "preco": 150.00
+        },
+        {
+            "id": 4,
+            "nome": "Tablet",
+            "preco": 2200.00
         }
     ])
 
@@ -46,6 +51,10 @@ def usuarios():
         {
             "id": 3,
             "nome": "Carlos"
+        },
+        {
+            "id": 4,
+            "nome": "Vinicius"
         }
     ])
 
